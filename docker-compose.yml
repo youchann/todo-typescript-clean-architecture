@@ -1,20 +1,20 @@
-version: '3'
+version: "3"
 services:
   app:
-    build: ./src
+    build: ./app
     container_name: express
-    env_file: ./src/app.env
-    #環境変数設定。タイムゾーンを日本時間に設定。
+    env_file: ./app/app.env
+    # 環境変数設定。タイムゾーンを日本時間に設定。
     environment:
       - TZ=Asia/Tokyo
       - DEBUG=app:*
     tty: true
     # ホスト側のポート:コンテナのポート
     ports:
-      - '3333:3000'
-    # ホスト側の./srcをコンテナの/appにマウント
+      - "3333:3000"
+    # ホスト側の./appをコンテナの/appにマウント
     volumes:
-      - ./src:/app
+      - ./app:/app
     # 起動時のカレントフォルダを指定
     working_dir: /app
     # 起動後に実行するコマンドを指定(起動確認用）
@@ -32,7 +32,7 @@ services:
       - TZ=Asia/Tokyo
     tty: true
     ports:
-      - '3334:3306'
+      - "3334:3306"
     volumes:
       # mysqlのデフォルト設定ファイルを上書き。:roでコンテナ側からは読み取り専用設定。
       - ./mysql/conf:/etc/mysql/conf.d/:ro
