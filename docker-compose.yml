@@ -2,12 +2,15 @@ version: "3"
 services:
   app:
     build: ./app
-    container_name: express
-    env_file: ./app/app.env
-    # 環境変数設定。タイムゾーンを日本時間に設定。
+    container_name: app
     environment:
-      - TZ=Asia/Tokyo
-      - DEBUG=app:*
+      DB_USER: root
+      DB_PASSWORD: todo
+      DB_DATABASE: todo
+      DB_DRIVER: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      TZ: Asia/Tokyo
     tty: true
     # ホスト側のポート:コンテナのポート
     ports:
@@ -19,26 +22,18 @@ services:
     working_dir: /app
     # 起動後に実行するコマンドを指定(起動確認用）
     command: yarn dev
-    networks:
-      - backend
     depends_on:
-      - mysql
+      - db
 
-  mysql:
-    image: mysql:5.7
-    container_name: mysql
-    env_file: ./mysql/mysql.env
+  db:
+    image: mysql:5.6
+    container_name: db
     environment:
-      - TZ=Asia/Tokyo
-    tty: true
+      MYSQL_ROOT_PASSWORD: todo
+      MYSQL_DATABASE: todo
+      TZ: Asia/Tokyo
     ports:
-      - "3334:3306"
+      - "3434:3306"
     volumes:
       # mysqlのデフォルト設定ファイルを上書き。:roでコンテナ側からは読み取り専用設定。
-      - ./mysql/conf:/etc/mysql/conf.d/:ro
-    networks:
-      - backend
-
-# 使用するネットワークを作成。docker-composeの場合service以下の名前を使って名前解決されるため、appとmysqlが自動的に接続される。
-networks:
-  backend:
+      - ./mysql/conf/my.cnf:/etc/mysql/conf.d/my.cnf:ro
