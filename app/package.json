@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node ./src/index.ts",
-    "lint": "prettier --write ."
+    "lint": "prettier --write .",
+    "migrate:create": "db-migrate create --config ./migrations/database.json",
+    "migrate:up": "db-migrate up --config ./migrations/database.json"
   },
   "devDependencies": {
     "@types/express": "^4.17.12",
