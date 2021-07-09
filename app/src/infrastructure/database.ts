@@ -1,9 +1,6 @@
 import mysql from 'mysql';
 import util from 'util';
-
-export abstract class DbConnection {
-  abstract execute(query: string, param?: any): any;
-}
+import { DbConnection } from '../interface/repository/dbConnection';
 
 export class MysqlConnection extends DbConnection {
   private pool: mysql.Pool;

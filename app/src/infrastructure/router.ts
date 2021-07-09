@@ -1,5 +1,5 @@
 import express = require('express');
-import { DbConnection } from '../interface/database';
+import { DbConnection } from '../interface/repository/dbConnection';
 
 export const createRouter = (dbConnection: DbConnection) => {
   let router = express.Router();

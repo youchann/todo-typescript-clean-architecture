@@ -1,6 +1,6 @@
 import express from 'express';
 import { createRouter } from './infrastructure/router';
-import { MysqlConnection } from './interface/database';
+import { MysqlConnection } from './infrastructure/database';
 
 const app: express.Express = express();
 app.use(express.json());
