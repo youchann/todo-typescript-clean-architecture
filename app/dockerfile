@@ -4,6 +4,6 @@ WORKDIR /app
 
 RUN yarn install
 
-# ここにマイグレーションの処理を書く
+RUN yarn migrate:up
 
 CMD ["yarn", "dev"]
