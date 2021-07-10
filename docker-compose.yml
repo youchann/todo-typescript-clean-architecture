@@ -1,7 +1,7 @@
 version: "3"
 services:
   app:
-    build: ./app
+    image: node:14
     container_name: app
     environment:
       DB_USER: root
@@ -18,6 +18,8 @@ services:
     # ホスト側の./appをコンテナの/appにマウント
     volumes:
       - ./app:/app
+    working_dir: /app
+    command: bash -c 'yarn && yarn run run-s migrate:up dev'
     depends_on:
       - db
 

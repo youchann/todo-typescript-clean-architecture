@@ -1,9 +1,0 @@
-FROM node:14
-
-WORKDIR /app
-
-RUN yarn install
-
-RUN yarn migrate:up
-
-CMD ["yarn", "dev"]
