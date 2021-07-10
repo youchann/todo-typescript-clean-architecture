@@ -1,4 +1,4 @@
-import express = require('express');
+import express from 'express';
 import { TodoController } from '../../interface/controller/todoController';
 import { IDbConnection } from '../../interface/type/IDbConnection';
 

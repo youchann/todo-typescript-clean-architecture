@@ -1,4 +1,4 @@
-import express = require('express');
+import express from 'express';
 import { IDbConnection } from '../../interface/type/IDbConnection';
 import { createTodoRouter } from './todoRouter';
 

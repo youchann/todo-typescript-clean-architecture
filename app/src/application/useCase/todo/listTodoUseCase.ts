@@ -1,4 +1,3 @@
-import { IDbConnection } from '../../../interface/type/IDbConnection';
 import { IUseCase } from '../../type/IUseCase';
 import { ITodoRepository } from '../../type/repository/ITodoRepository';
 
