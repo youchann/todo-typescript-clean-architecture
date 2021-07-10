@@ -1,3 +1,3 @@
-export interface ControllerRequest {
+export interface IControllerRequest {
   params: { [key in string]?: any };
 }

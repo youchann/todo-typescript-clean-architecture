@@ -1,8 +1,8 @@
 import mysql from 'mysql';
 import util from 'util';
-import { DbConnection } from '../interface/types/dbConnection';
+import { IDbConnection } from '../interface/type/IDbConnection';
 
-export class MysqlConnection extends DbConnection {
+export class MysqlConnection extends IDbConnection {
   private pool: mysql.Pool;
 
   constructor() {

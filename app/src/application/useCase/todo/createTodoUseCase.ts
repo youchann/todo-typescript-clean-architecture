@@ -1,9 +1,12 @@
-import { DbConnection } from '../../../interface/types/dbConnection';
-import { UseCase } from '../../types/useCase';
+import { IDbConnection } from '../../../interface/type/IDbConnection';
+import { IUseCase } from '../../type/IUseCase';
 
-export class CreateTodoUseCase extends UseCase {
-  constructor(dbConnection: DbConnection) {
-    super(dbConnection);
+export class CreateTodoUseCase extends IUseCase {
+  protected dbConnection: IDbConnection;
+
+  constructor(dbConnection: IDbConnection) {
+    super();
+    this.dbConnection = dbConnection;
   }
 
   async execute() {
