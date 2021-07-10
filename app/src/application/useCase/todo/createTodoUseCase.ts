@@ -1,16 +1,17 @@
 import { IDbConnection } from '../../../interface/type/IDbConnection';
 import { IUseCase } from '../../type/IUseCase';
+import { ITodoRepository } from '../../type/repository/ITodoRepository';
 
 export class CreateTodoUseCase extends IUseCase {
-  protected dbConnection: IDbConnection;
+  protected todoRepository: ITodoRepository;
 
-  constructor(dbConnection: IDbConnection) {
+  constructor(todoRepository: ITodoRepository) {
     super();
-    this.dbConnection = dbConnection;
+    this.todoRepository = todoRepository;
   }
 
   async execute() {
-    const result = await this.dbConnection.execute('select * from todo');
+    const result = await this.todoRepository.list();
     return result;
   }
 }

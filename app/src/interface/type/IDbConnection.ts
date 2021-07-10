@@ -1,3 +1,3 @@
 export abstract class IDbConnection {
-  abstract execute(query: string, param?: (string | number)[]): Promise<any>;
+  abstract execute<T = any>(query: string, param?: (string | number)[]): Promise<T>;
 }

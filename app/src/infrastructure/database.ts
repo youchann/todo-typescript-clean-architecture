@@ -41,9 +41,9 @@ export class MysqlConnection extends IDbConnection {
 
   async execute(query: string, params: any = null) {
     if (params !== null) {
-      return this.pool.query(query, params);
+      return this.pool.query(query, params) as any;
     } else {
-      return this.pool.query(query);
+      return this.pool.query(query) as any;
     }
   }
 }
