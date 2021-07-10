@@ -1,6 +1,6 @@
 import mysql from 'mysql';
 import util from 'util';
-import { DbConnection } from '../interface/repository/dbConnection';
+import { DbConnection } from '../interface/types/dbConnection';
 
 export class MysqlConnection extends DbConnection {
   private pool: mysql.Pool;

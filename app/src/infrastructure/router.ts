@@ -1,6 +1,6 @@
 import express = require('express');
 import { TodoController } from '../interface/controller/todoController';
-import { DbConnection } from '../interface/repository/dbConnection';
+import { DbConnection } from '../interface/types/dbConnection';
 
 export const createRouter = (dbConnection: DbConnection) => {
   const router = express.Router();
