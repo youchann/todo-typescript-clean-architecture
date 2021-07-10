@@ -11,5 +11,10 @@ export const createTodoRouter = (dbConnection: IDbConnection) => {
     res.send(result);
   });
 
+  router.post('/', async (req: express.Request, res: express.Response) => {
+    const result = await todoController.create(req, res);
+    res.send(result);
+  });
+
   return router;
 };

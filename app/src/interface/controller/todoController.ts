@@ -1,5 +1,7 @@
 import { ITodoRepository } from '../../application/type/repository/ITodoRepository';
+import { CreateTodoUseCase } from '../../application/useCase/todo/createTodoUseCase';
 import { ListTodoUseCase } from '../../application/useCase/todo/listTodoUseCase';
+import { Todo } from '../../entity/todo';
 import { TodoRepository } from '../repository/todoRepository';
 import { TodoSerializer } from '../serializer/todoSerializer';
 import { IControllerRequest } from '../type/IControllerRequest';
@@ -18,5 +20,13 @@ export class TodoController {
     const useCase = new ListTodoUseCase(this.todoRepository);
     const result = await useCase.execute();
     return result.map((r) => this.todoSerializer.serialize(r));
+  }
+
+  async create(req: IControllerRequest, _res: IControllerResponse) {
+    const { name, memo, isDone } = req.body;
+    const todo = new Todo({ name, memo, isDone });
+    const useCase = new CreateTodoUseCase(this.todoRepository);
+    const result = await useCase.execute(todo);
+    return this.todoSerializer.serialize(result);
   }
 }
