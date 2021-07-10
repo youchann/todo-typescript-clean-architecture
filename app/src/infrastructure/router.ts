@@ -1,12 +1,15 @@
 import express = require('express');
+import { TodoController } from '../interface/controller/todoController';
 import { DbConnection } from '../interface/repository/dbConnection';
 
 export const createRouter = (dbConnection: DbConnection) => {
-  let router = express.Router();
+  const router = express.Router();
+  const todoController = new TodoController(dbConnection);
+
   router.get('/todo', async (req: express.Request, res: express.Response) => {
-    const hoge = await dbConnection.execute('select * from todo');
-    hoge.map((h: any) => console.log(h.id));
-    res.send('hoge');
+    const result = await todoController.list(req, res);
+    res.send(result);
   });
+
   return router;
 };
