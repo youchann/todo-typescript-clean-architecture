@@ -3,6 +3,7 @@ import { CreateTodoUseCase } from '../../application/useCase/todo/createTodoUseC
 import { ListTodoUseCase } from '../../application/useCase/todo/listTodoUseCase';
 import { UpdateTodoUseCase } from '../../application/useCase/todo/updateTodoUseCase';
 import { FindTodoUseCase } from '../../application/useCase/todo/findTodoUseCase';
+import { DeleteTodoUseCase } from '../../application/useCase/todo/deleteTodoUseCase';
 import { Todo } from '../../entity/todo';
 import { TodoRepository } from '../repository/todoRepository';
 import { TodoSerializer } from '../serializer/todoSerializer';
@@ -32,6 +33,7 @@ export class TodoController {
   }
 
   async create(req: IControllerRequest, _res: IControllerResponse) {
+    // TODO: validate params
     const { name, memo, isDone } = req.body;
     const todo = new Todo({ name, memo, isDone });
     const useCase = new CreateTodoUseCase(this.todoRepository);
@@ -40,11 +42,20 @@ export class TodoController {
   }
 
   async update(req: IControllerRequest, _res: IControllerResponse) {
+    // TODO: validate params
     const { id } = req.params;
     const { name, memo, isDone } = req.body;
     const todo = new Todo({ id, name, memo, isDone });
     const useCase = new UpdateTodoUseCase(this.todoRepository);
     const result = await useCase.execute(todo);
     return this.todoSerializer.serialize(result);
+  }
+
+  async delete(req: IControllerRequest, _res: IControllerResponse) {
+    // TODO: validate params
+    const { id } = req.params;
+    const useCase = new DeleteTodoUseCase(this.todoRepository);
+    const result = await useCase.execute(id);
+    return result;
   }
 }

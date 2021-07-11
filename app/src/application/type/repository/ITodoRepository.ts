@@ -12,5 +12,5 @@ export abstract class ITodoRepository {
   abstract list(): Promise<Todo[]>;
   abstract create(todo: Todo): Promise<number>;
   abstract update(todo: Todo): Promise<number>;
-  // abstract delete(todo: Todo): Promise<Todo>;
+  abstract delete(id: number): Promise<number>;
 }

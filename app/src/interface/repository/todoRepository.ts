@@ -42,4 +42,9 @@ export class TodoRepository extends ITodoRepository {
     );
     return todo.id as number;
   }
+
+  async delete(id: number) {
+    await this.dbConnection.execute('delete from todo where id = ?', [id]);
+    return id;
+  }
 }
