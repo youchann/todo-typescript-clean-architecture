@@ -2,6 +2,7 @@ import { ITodoRepository } from '../../application/type/repository/ITodoReposito
 import { CreateTodoUseCase } from '../../application/useCase/todo/createTodoUseCase';
 import { ListTodoUseCase } from '../../application/useCase/todo/listTodoUseCase';
 import { UpdateTodoUseCase } from '../../application/useCase/todo/updateTodoUseCase';
+import { FindTodoUseCase } from '../../application/useCase/todo/findTodoUseCase';
 import { Todo } from '../../entity/todo';
 import { TodoRepository } from '../repository/todoRepository';
 import { TodoSerializer } from '../serializer/todoSerializer';
@@ -15,6 +16,13 @@ export class TodoController {
   constructor(dbConnection: IDbConnection) {
     this.todoSerializer = new TodoSerializer();
     this.todoRepository = new TodoRepository(dbConnection);
+  }
+
+  async find(req: IControllerRequest, _res: IControllerResponse) {
+    const { id } = req.params;
+    const useCase = new FindTodoUseCase(this.todoRepository);
+    const result = await useCase.execute(id);
+    return this.todoSerializer.serialize(result);
   }
 
   async list(_req: IControllerRequest, _res: IControllerResponse) {

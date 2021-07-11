@@ -16,6 +16,11 @@ export const createTodoRouter = (dbConnection: IDbConnection) => {
     res.send(result);
   });
 
+  router.get('/:id', async (req: express.Request, res: express.Response) => {
+    const result = await todoController.find(req, res);
+    res.send(result);
+  });
+
   router.put('/:id', async (req: express.Request, res: express.Response) => {
     const result = await todoController.update(req, res);
     res.send(result);
