@@ -8,9 +8,9 @@ export abstract class ITodoRepository {
     this.dbConnection = dbConnection;
   }
 
+  abstract find(id: number): Promise<Todo>;
   abstract list(): Promise<Todo[]>;
-  abstract create(todo: Todo): Promise<Todo>;
-  // abstract find(id: number): Promise<Todo>;
-  // abstract update(todo: Todo): Promise<Todo>;
+  abstract create(todo: Todo): Promise<number>;
+  abstract update(todo: Todo): Promise<number>;
   // abstract delete(todo: Todo): Promise<Todo>;
 }

@@ -13,6 +13,15 @@ export class TodoRepository extends ITodoRepository {
     });
   }
 
+  private getDoneValue(isDone: boolean) {
+    return isDone ? 1 : 0;
+  }
+
+  async find(id: number) {
+    const result = await this.dbConnection.execute('select * from todo where id = ?', [id]);
+    return this.mapToEntity(result);
+  }
+
   async list() {
     const result = await this.dbConnection.execute<any[]>('select * from todo');
     return result.map((r) => this.mapToEntity(r));
@@ -21,14 +30,16 @@ export class TodoRepository extends ITodoRepository {
   async create(todo: Todo) {
     const result = await this.dbConnection.execute(
       'insert into todo(name,memo,is_done) values (?,?,?)',
-      [todo.name, todo.memo, todo.isDone ? 1 : 0]
+      [todo.name, todo.memo, this.getDoneValue(todo.isDone)]
     );
-    return new Todo({
-      id: result.insertId,
-      name: todo.name,
-      memo: todo.memo,
-      isDone: todo.isDone,
-      createdAt: new Date(),
-    });
+    return result.insertId;
+  }
+
+  async update(todo: Todo) {
+    await this.dbConnection.execute(
+      'update todo set name = ?, memo = ?, is_done = ? where id = ?',
+      [todo.name, todo.memo, this.getDoneValue(todo.isDone), todo.id as number]
+    );
+    return todo.id as number;
   }
 }
